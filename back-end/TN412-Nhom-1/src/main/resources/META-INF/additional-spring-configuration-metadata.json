@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "spring.resources.chain.webjars.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.resources.chain.webjars.enabled'"
+  },
+  {
+    "name": "spring.resources.chain.webjars.detect-cache-mappings",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.resources.chain.webjars.detect-cache-mappings'"
+  },
+  {
+    "name": "spring.resources.chain.webjars.cache-period",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.resources.chain.webjars.cache-period'"
+  }
+]}

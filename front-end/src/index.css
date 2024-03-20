@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Nunito', sans-serif;
+  }
+}
+
+html{
+  margin: 0;
+  padding: 0;
+  border: none;
+  user-select: none;
+  overflow-y: auto;
+}
+
+*{
+  box-sizing: border-box;
+  outline: none;
+}
+
+.react-slideshow-container {
+  box-sizing: border-box;
+  width: 100vw;
+}

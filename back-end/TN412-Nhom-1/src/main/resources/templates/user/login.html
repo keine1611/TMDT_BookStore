@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+		<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link th:rel="stylesheet" th:href="@{/css/login_register.css}">
+</head>
+<body>
+    <section>
+        <div class="imageBox">
+            <img th:src="@{/images/sach.jpg}" alt="">
+        </div>
+        <div class="content-box">
+            <div class="form-box">
+                <h2>Login</h2>
+                <form action="">
+                    <div class="input-box">
+                        <span>Username</span>
+                        <input type="text" name="" placeholder="">
+                    </div>
+                    <div class="input-box">
+                        <span>Password</span>
+                        <input type="password" name="" placeholder="">
+                    </div>
+                    <div class="remember">
+                        <label for=""><input type="checkbox"> Remember Me</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" value="Login" name="" placeholder="">
+                    </div>
+                    <div class="input-box">
+                        <p>Don't have an account? <a th:href="@{/register}">Sign Up</a></p>
+                    </div>
+                </form>
+                <h3>Login with Social Media</h3>
+                <ul class="social-icons">
+                    <li><img th:src="@{/images/icons8-google-48.png}" alt=""></li>
+                    <li><img th:src="@{/images/icons8-github-48.png}" alt=""></li>
+                    <li><img th:src="@{/images/icons8-facebook-48.png}" alt=""></li>
+                    <li><img th:src="@{/images/icons8-instagram-48.png}" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--<script src="script.js"></script>-->
+</body>
+		
+</html>
