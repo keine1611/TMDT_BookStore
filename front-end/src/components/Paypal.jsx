@@ -3,6 +3,8 @@ import React from "react";
 import { MyToast } from "./MyToast";
 
 import axios from "axios";
+import MailTemplate from "./MailTemplate";
+import ReactDOMServer from 'react-dom/server';
 
 const PayPalComponent = ({ order, orderItem, user }) => {
 
@@ -77,6 +79,16 @@ const PayPalComponent = ({ order, orderItem, user }) => {
                   orderDetail.push({ book_id: item.book.id, quantity: item.cart_item_quantity }) 
                   return null
                 })
+                console.log(user)
+    console.log(orderItem)
+    console.log(res.data)
+                const message = ReactDOMServer.renderToString(<MailTemplate order={res.data} orderItem={orderItem} user={user}></MailTemplate>)
+                const formData = new FormData()
+                    formData.append('subject','Xác nhận đơn hàng')
+                    formData.append('message',message )
+                    formData.append('email','phungdemachp2902@gmail.com')
+                    
+                    axios.post('/api/mail',formData)
                 axios.post('/api/orderdetail/' + res.data.id, orderDetail)
                   .then(() => {
                     MyToast('success', 'Đặt hàng thành công')

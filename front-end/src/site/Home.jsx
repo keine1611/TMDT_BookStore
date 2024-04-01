@@ -2,6 +2,7 @@ import React from 'react'
 import PopularBook from '../components/Home/PopularBook'
 import BestSeller from '../components/Home/BestSeller'
 import BillBoard from '../components/Home/BillBoard'
+import MailTemplate from '../components/MailTemplate'
 
 const Home = () => {
   
@@ -10,6 +11,7 @@ const Home = () => {
 
   return (
     <>
+    <MailTemplate></MailTemplate>
     <BillBoard/>
 
       <section id="client-holder" data-aos="fade-up">
