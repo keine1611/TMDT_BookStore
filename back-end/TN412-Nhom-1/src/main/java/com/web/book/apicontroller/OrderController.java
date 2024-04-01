@@ -1,5 +1,6 @@
 package com.web.book.apicontroller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,11 +48,13 @@ public class OrderController {
 			@RequestParam("ship_cost") int ship_cost, @RequestParam("subtotal") int subtotal) {
 		User orderUser = userEntityRepos.findById(user_id).orElseThrow(() -> new IllegalArgumentException("User Not Found"));
 		Order neworOrder = new Order();
+		LocalDateTime now = LocalDateTime.now();
 		neworOrder.setBook_cost(book_cost);
 		neworOrder.setShip_cost(ship_cost);
 		neworOrder.setSubtotal(subtotal);
 		neworOrder.setUser(orderUser);
 		neworOrder.setStatus("PENDING");
+		neworOrder.setOrderAt(now);
 		orderRepos.save(neworOrder);
 		return ResponseEntity.ok(neworOrder);
 	}

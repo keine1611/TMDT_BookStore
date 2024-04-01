@@ -1,9 +1,11 @@
 package com.web.book.entity;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Proxy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +39,9 @@ public class Order {
 	
 	private Integer subtotal;
 	
+	@CreationTimestamp
+	private LocalDateTime orderAt;
+	
 	private String status;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,17 +57,31 @@ public class Order {
 		super();
 	}
 
-	public Order(Long id, int book_cost, int ship_cost, int subtotal, String status, User user,
-			List<OrderDetail> orderDetails) {
-		super();
-		this.id = id;
+	
+
+	public Order(Integer book_cost, Integer ship_cost, Integer subtotal, LocalDateTime orderAt, String status,
+			User user, List<OrderDetail> orderDetails) {
 		this.book_cost = book_cost;
 		this.ship_cost = ship_cost;
 		this.subtotal = subtotal;
+		this.orderAt = orderAt;
 		this.status = status;
 		this.user = user;
 		this.orderDetails = orderDetails;
 	}
+
+
+	public LocalDateTime getOrderAt() {
+		return orderAt;
+	}
+
+
+
+	public void setOrderAt(LocalDateTime orderAt) {
+		this.orderAt = orderAt;
+	}
+
+
 
 	public Long getId() {
 		return id;
