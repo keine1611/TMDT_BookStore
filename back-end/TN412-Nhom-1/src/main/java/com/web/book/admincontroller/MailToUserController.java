@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.web.book.entity.Book;
 import com.web.book.entity.User;
+import com.web.book.repository.BookRepository;
 import com.web.book.repository.UserRepository;
 import com.web.book.service.MailService;
 
@@ -26,6 +29,8 @@ public class MailToUserController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	BookRepository bookRepository;
 	@GetMapping("/mail")
 	public String getForm(Model model) {
 		return "admin/mail";
@@ -41,6 +46,20 @@ public class MailToUserController {
 			mailService.sendMail(email, subject, message);
 		}
 		return "redirect:/admin/account";
+	}
+	
+	@GetMapping("/emailAds")
+	public String sendEmailPage(Model model){
+		List<Book> books = bookRepository.findAll();
+		model.addAttribute("books", books);
+		return "admin/emailAds";
+	}
+
+	@PostMapping("/mail/emailAds")
+	public String sendEmail(@RequestParam("selectedProducts") List<Long> selectedBooks) throws MessagingException, IOException {
+		List<Book> selectedProductList = bookRepository.findAllById(selectedBooks);
+		mailService.sendEmailAds(selectedProductList);
+		return "redirect:/admin/book/list-books";
 	}
 
 }
