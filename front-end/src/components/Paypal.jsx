@@ -1,12 +1,47 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MyToast } from "./MyToast";
 
 import axios from "axios";
 import MailTemplate from "./MailTemplate";
 import ReactDOMServer from 'react-dom/server';
+import baseURL from "../config/baseURL";
 
 const PayPalComponent = ({ order, orderItem, user }) => {
+
+  const [item, setItem] = useState([])
+
+  const imageToByteArray = async (url)=>{
+    try {
+      const response = await axios.get(url, { responseType: 'arraybuffer' });
+      const arrayBuffer = response.data;
+      const bytes = new Uint8Array(arrayBuffer);
+      const base64String = btoa(String.fromCharCode.apply(null, bytes));
+      return `data:image/jpeg;base64,${base64String}` 
+    } catch (error) {
+        return null
+    }
+  }
+
+  useEffect(()=>{
+    const createByteArray = async()=>{
+      if(orderItem){
+          try {
+              const updatedOrderItem = await Promise.all(orderItem.map(async (book) => {
+                  const url = '/images/books/'+book.book.book_image
+                  const updatedBook = { ...book };
+                  updatedBook.book.book_image = await imageToByteArray(url);
+                  return updatedBook;
+              }));
+              setItem(updatedOrderItem);
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      }
+    }
+    createByteArray()
+  },[orderItem])
+
 
   const initialOptions = {
     clientId: 'ASFTulj0-xMpVEQwcqEUxPFmTKYS_OG_dWPOfWjNFO3r07oR5V1PoGohRFRY9soX5vO-6dfwxUxcfUnQ',
@@ -73,20 +108,17 @@ const PayPalComponent = ({ order, orderItem, user }) => {
             bookOrder.append("book_cost", order.book_cost)
             bookOrder.append("ship_cost", order.ship_cost)
             axios.post('/api/order/' + user.id, bookOrder)
-              .then(res => {
+              .then(async res => {
                 const orderDetail = []
                 orderItem.map((item) => {
                   orderDetail.push({ book_id: item.book.id, quantity: item.cart_item_quantity }) 
                   return null
                 })
-                console.log(user)
-    console.log(orderItem)
-    console.log(res.data)
-                const message = ReactDOMServer.renderToString(<MailTemplate order={res.data} orderItem={orderItem} user={user}></MailTemplate>)
+                const message = ReactDOMServer.renderToString(<MailTemplate order={res.data} orderItem={item} user={user}></MailTemplate>)
                 const formData = new FormData()
                     formData.append('subject','Xác nhận đơn hàng')
                     formData.append('message',message )
-                    formData.append('email','phungdemachp2902@gmail.com')
+                    formData.append('email',user.email)
                     
                     axios.post('/api/mail',formData)
                 axios.post('/api/orderdetail/' + res.data.id, orderDetail)

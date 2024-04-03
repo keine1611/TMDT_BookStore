@@ -16,7 +16,10 @@ import * as React from "react";
 
 
 export const MailTemplate = ({ user, orderItem, order }) => {
-    if (user)
+
+
+
+    if (user && orderItem.length > 0)
         return (<Html>
             <Head />
             <Preview>FLOWER BOOK STORE</Preview>
@@ -34,14 +37,13 @@ export const MailTemplate = ({ user, orderItem, order }) => {
                                 />
                             </Column>
 
-                            <Column align="right" style={tableCell}>
+                            <Column align="center" style={tableCell}>
                                 <Text style={heading}>ORDER CONFIRMATION</Text>
                             </Column>
                         </Row>
                     </Section>
                     <Section>
-                        <Text style={cupomText}>
-                            Save 3% on all your book purchases with cuppon.
+                        <Text style={cupomText}>       Save 3% on all your book purchases with cuppon.
                         </Text>
                     </Section>
                     <Section style={informationTable}>
@@ -110,10 +112,10 @@ export const MailTemplate = ({ user, orderItem, order }) => {
                                 <Row>
                                     <Column style={{ width: "64px" }}>
                                         <Img
-                                            src={`/static/apple-hbo-max-icon.jpeg`}
+                                            src={book.book.book_image}
                                             width="64"
                                             height="64"
-                                            alt="HBO Max"
+                                            alt="product_img"
                                             style={productIcon}
                                         />
                                     </Column>
@@ -174,7 +176,7 @@ export const MailTemplate = ({ user, orderItem, order }) => {
                     <Section>
                         <Row>
                             <Column align="center" style={ctaTitle}>
-                                <Text style={ctaText}>Save 3% on all your Apple purchases.</Text>
+                                <Text style={ctaText}>Save 3% on all your Books purchases.</Text>
                             </Column>
                         </Row>
                     </Section>
@@ -200,28 +202,25 @@ export const MailTemplate = ({ user, orderItem, order }) => {
                     <Hr style={walletBottomLine} />
                     <Text style={footerText}>
                         1. 3% savings is earned as Daily Cash and is transferred to your Apple
-                        Cash card when transactions post to your Apple Card account. If you do
-                        not have an Apple Cash card, Daily Cash can be applied by you as a
+                        Cash card when transactions post to your account. If you do
+                        not have an card, Daily Cash can be applied by you as a
                         credit on your statement balance. 3% is the total amount of Daily Cash
                         earned for these purchases. See the Apple Card Customer Agreement for
                         more details on Daily Cash and qualifying transactions.
                     </Text>
                     <Text style={footerText}>2. Subject to credit approval.</Text>
                     <Text style={footerText}>
-                        To access and use all the features of Apple Card, you must add Apple
-                        Card to Wallet on an iPhone or iPad with iOS or iPadOS 13.2 or later.
-                        Update to the latest version of iOS or iPadOS by going to Settings
-                        &gt; General &gt; Software Update. Tap Download and Install.
+                        To access and use all the features of Card, you must add
+                        Card to Wallet.
                     </Text>
                     <Text style={footerText}>
-                        Available for qualifying applicants in the United States.
+                        Available for qualifying applicants in the Vietnamese.
                     </Text>
                     <Text style={footerText}>
-                        Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City Branch.
+                        ....
                     </Text>
                     <Text style={footerText}>
-                        If you reside in the US territories, please call Goldman Sachs at
-                        877-255-5923 with questions about Apple Card.
+                        Call me: 0898 888 999
                     </Text>
                     <Text style={footerTextCenter}>
                         Privacy: We use a
@@ -237,15 +236,8 @@ export const MailTemplate = ({ user, orderItem, order }) => {
                             href="https://support.apple.com/billing?cid=email_receipt"
                             style={footerLink}
                         >
-                            Visit Apple Support.
+                            Visit Support.
                         </Link>
-                    </Text>
-                    <Text style={footerTextCenter}>
-                        Learn how to{" "}
-                        <Link href="https://support.apple.com/kb/HT204030?cid=email_receipt_itunes_article_HT204030">
-                            manage your password preferences
-                        </Link>{" "}
-                        for iTunes, Apple Books, and App Store purchases.
                     </Text>
 
                     <Text style={footerTextCenter}>
